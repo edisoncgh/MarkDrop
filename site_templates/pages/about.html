@@ -2,26 +2,48 @@
 
 {% block title %}关于 - {{ site.title }}{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{{ static_prefix }}/css/main.css">
+{% endblock %}
+
 {% block content %}
 <div class="about-page">
-    <div class="text-center mb-4">
+    <div class="about-header">
         <h1>关于我</h1>
+        <p class="about-subtitle">记录技术，分享思考</p>
     </div>
     
-    <div class="about-content">
-        {{ about_content|safe|default:"暂无介绍" }}
+    <div class="about-content-card">
+        <div class="about-content">
+            {{ about_content|safe|default:"暂无介绍" }}
+        </div>
     </div>
     
-    <hr class="my-4">
-    
-    <h3>联系方式</h3>
-    <ul class="list-unstyled">
-        {% if site.author %}
-        <li><strong>作者：</strong> {{ site.author }}</li>
-        {% endif %}
-        {% if site.url %}
-        <li><strong>网站：</strong> <a href="{{ site.url }}">{{ site.url }}</a></li>
-        {% endif %}
-    </ul>
+    <div class="about-contact">
+        <h2>联系方式</h2>
+        
+        <ul class="contact-list">
+            {% if site.author %}
+            <li>
+                <span class="contact-label">作者</span>
+                <span class="contact-value">{{ site.author }}</span>
+            </li>
+            {% endif %}
+            
+            {% if site.url %}
+            <li>
+                <span class="contact-label">网站</span>
+                <a href="{{ site.url }}" class="contact-value">{{ site.url }}</a>
+            </li>
+            {% endif %}
+            
+            {% if site.email %}
+            <li>
+                <span class="contact-label">邮箱</span>
+                <a href="mailto:{{ site.email }}" class="contact-value">{{ site.email }}</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
 </div>
 {% endblock %}
