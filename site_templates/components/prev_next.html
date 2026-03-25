@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-6">
             {% if prev_post %}
-            <a href="/posts/{{ prev_post.published_at.year }}/{{ prev_post.slug }}.html" class="text-decoration-none">
+            <a href="{{ url_prefix }}posts/{{ prev_post.published_at.year }}/{{ prev_post.slug }}.html" class="text-decoration-none">
                 <span class="text-muted">← 上一篇</span><br>
                 <span>{{ prev_post.title|truncatechars:30 }}</span>
             </a>
@@ -10,7 +10,7 @@
         </div>
         <div class="col-6 text-end">
             {% if next_post %}
-            <a href="/posts/{{ next_post.published_at.year }}/{{ next_post.slug }}.html" class="text-decoration-none">
+            <a href="{{ url_prefix }}posts/{{ next_post.published_at.year }}/{{ next_post.slug }}.html" class="text-decoration-none">
                 <span class="text-muted">下一篇 →</span><br>
                 <span>{{ next_post.title|truncatechars:30 }}</span>
             </a>

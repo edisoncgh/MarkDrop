@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} - {{ site.title }}{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">{{ category.name }}</h1>
+{% if category.description %}
+<p class="text-muted mb-4">{{ category.description }}</p>
+{% endif %}
+
+{% for post in posts %}
+<article class="card mb-3">
+    <div class="card-body">
+        <h2 class="card-title h5">
+            <a href="{{ url_prefix }}posts/{{ post.published_at.year }}/{{ post.slug }}.html">{{ post.title }}</a>
+        </h2>
+        <p class="card-text text-muted">{{ post.published_at|date:"Y-m-d" }}</p>
+    </div>
+</article>
+{% empty %}
+<p class="text-muted">该分类下暂无文章</p>
+{% endfor %}
+{% endblock %}
