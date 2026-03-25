@@ -41,3 +41,12 @@ class PostAdmin(admin.ModelAdmin):
         ("内容", {"fields": ("content", "cover_image")}),
         ("时间", {"fields": ("published_at",), "classes": ("collapse",)}),
     )
+
+    class Media:
+        css = {
+            'all': ('/static/vendor/easymde/easymde.min.css',)
+        }
+        js = (
+            '/static/vendor/easymde/easymde.min.js',
+            '/static/js/admin-post.js',
+        )
