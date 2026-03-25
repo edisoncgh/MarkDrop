@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}归档 - {{ site.title }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ static_prefix }}/css/main.css">
+{% endblock %}
+
+{% block content %}
+<div class="archive-page">
+    <h1 class="page-title">归档</h1>
+    
+    <div class="timeline">
+        {% regroup posts by published_at|date:"Y" as posts_by_year %}
+        
+        {% for year in posts_by_year %}
+        <div class="timeline-year">
+            <h2 class="year-label">{{ year.grouper }}</h2>
+            
+            <ul class="timeline-posts">
+                {% for post in year.list %}
+                <li class="timeline-post">
+                    <div class="timeline-date">
+                        <time>{{ post.published_at|date:"m-d" }}</time>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <a href="{{ url_prefix }}posts/{{ post.published_at.year }}/{{ post.slug }}.html">
+                            {{ post.title }}
+                        </a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <p>暂无文章</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
