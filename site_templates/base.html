@@ -7,6 +7,7 @@
     {% include 'components/header.html' %}
     <title>{% block title %}{{ site.title|default:'我的博客' }}{% endblock %}</title>
     <link rel="stylesheet" href="{{ static_prefix }}/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ static_prefix }}/css/main.css">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
