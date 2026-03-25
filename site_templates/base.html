@@ -6,7 +6,7 @@
     <meta name="description" content="{% block meta_description %}{{ site.description|default:'' }}{% endblock %}">
     {% include 'components/header.html' %}
     <title>{% block title %}{{ site.title|default:'我的博客' }}{% endblock %}</title>
-    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ static_prefix }}/vendor/bootstrap/css/bootstrap.min.css">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -18,7 +18,13 @@
     
     {% include 'components/footer.html' %}
     
-    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ static_prefix }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 移动端导航切换
+        document.querySelector('.navbar-toggle')?.addEventListener('click', function() {
+            document.querySelector('.navbar-menu').classList.toggle('active');
+        });
+    </script>
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>

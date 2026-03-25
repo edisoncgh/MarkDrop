@@ -1,28 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">{{ site.title|default:'我的博客' }}</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+<!-- site_templates/components/navbar.html -->
+<nav class="edgp-navbar">
+    <div class="navbar-container">
+        <a class="navbar-brand" href="{{ url_prefix }}">
+            <span class="brand-text">{{ site.title|default:'我的博客' }}</span>
+        </a>
+        
+        <button class="navbar-toggle" aria-label="切换导航">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+        
+        <div class="navbar-menu">
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">首页</a>
+                    <a class="nav-link" href="{{ url_prefix }}">首页</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/archive.html">归档</a>
+                    <a class="nav-link" href="{{ url_prefix }}archive.html">归档</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/tags/">标签</a>
+                    <a class="nav-link" href="{{ url_prefix }}tags/">标签</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/moments.html">说说</a>
+                    <a class="nav-link" href="{{ url_prefix }}moments.html">说说</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/friends.html">友链</a>
+                    <a class="nav-link" href="{{ url_prefix }}friends.html">友链</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about.html">关于</a>
+                    <a class="nav-link" href="{{ url_prefix }}about.html">关于</a>
                 </li>
             </ul>
         </div>
