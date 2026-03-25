@@ -1,0 +1,9 @@
+# requirements.txt
+Django>=5.0
+django-simpleui>=2024.1
+Pillow>=10.0
+markdown-it-py>=3.0
+mdit-py-plugins>=0.4
+pygments>=2.17
+pyyaml>=6.0
+python-slugify>=8.0
