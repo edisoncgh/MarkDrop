@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} - {{ site.title|default:'我的博客' }}{% endblock %}
+
+{% block content %}
+<article class="post">
+    <header class="post-header mb-4">
+        <h1 class="display-5">{{ post.title }}</h1>
+        <div class="text-muted">
+            <time datetime="{{ post.published_at|date:'c' }}">
+                {{ post.published_at|date:"Y年m月d日" }}
+            </time>
+            {% if post.category %}
+            <span class="ms-2">
+                <a href="/categories/{{ post.category.slug }}.html" class="text-decoration-none">
+                    {{ post.category.name }}
+                </a>
+            </span>
+            {% endif %}
+            {% for tag in post.tags.all %}
+            <span class="ms-2">
+                <a href="/tags/{{ tag.slug }}.html" class="badge bg-secondary text-decoration-none">
+                    #{{ tag.name }}
+                </a>
+            </span>
+            {% endfor %}
+        </div>
+    </header>
+    
+    {% if post.cover_image %}
+    <div class="post-cover mb-4">
+        <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="img-fluid rounded">
+    </div>
+    {% endif %}
+    
+    <div class="post-content">
+        {{ post.content_html|safe|default:post.content|linebreaks }}
+    </div>
+    
+    {% include 'components/prev_next.html' %}
+</article>
+{% endblock %}
+
+{% block extra_scripts %}
+{# Phase 2: mermaid, katex 脚本 #}
+{% endblock %}
