@@ -194,8 +194,8 @@ class StaticSiteGenerator:
                 {"tag": tag, "posts": posts},
                 static_prefix="../static",  # 从 tags/ 回到 static
                 url_prefix="../",  # 从 tags/ 回到根目录 (含尾部斜杠)
+            )
             html = render_to_string("pages/tag.html", context)
-            self._write_page(f"tags/{tag.slug}.html", html)
 
     def _generate_categories(self):
         """生成分类页"""
