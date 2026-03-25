@@ -32,8 +32,9 @@
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
     --bg-tertiary: #f1f3f5;
+    --bg-gradient-start: #f5f7fa;
+    --bg-gradient-end: #c3cfe2;
     --bg-dark: #1a1a2e;
-    
     /* 边框色 */
     --border-light: #e9ecef;
     --border-default: #dee2e6;
@@ -101,6 +102,11 @@
     --font-semibold: 600;
     --font-bold: 700;
     
+    /* 渐变 */
+    --gradient-primary: linear-gradient(135deg, var(--primary-400) 0%, var(--secondary-500) 100%);
+    --gradient-primary-light: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
+    
+    /* 响应式断点 */
     /* 响应式断点 */
     --breakpoint-sm: 576px;
     --breakpoint-md: 768px;
