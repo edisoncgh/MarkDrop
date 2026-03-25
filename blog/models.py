@@ -26,3 +26,24 @@ class Category(models.Model):
     @property
     def post_count(self):
         return self.posts.count()
+class Tag(models.Model):
+    """标签"""
+    name = models.CharField('标签名称', max_length=50)
+    slug = models.SlugField('URL标识', unique=True, blank=True)
+    
+    class Meta:
+        verbose_name = '标签'
+        verbose_name_plural = '标签'
+        ordering = ['name']
+    
+    def __str__(self):
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+    
+    @property
+    def post_count(self):
+        return self.posts.count()
