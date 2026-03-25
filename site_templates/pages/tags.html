@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}标签 - {{ site.title }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ static_prefix }}/css/main.css">
+{% endblock %}
+
+{% block content %}
+<div class="tags-page">
+    <h1 class="page-title">标签</h1>
+    
+    <div class="tag-cloud-large">
+        {% for tag in tags %}
+        <a href="{{ url_prefix }}tags/{{ tag.slug }}.html" 
+           class="tag-cloud-item" 
+           data-count="{{ tag.post_count }}">
+            <span class="tag-name">{{ tag.name }}</span>
+            <span class="tag-count">{{ tag.post_count }}</span>
+        </a>
+        {% empty %}
+        <div class="empty-state">
+            <p>暂无标签</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
