@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}{{ site.description|default:'' }}{% endblock %}">
+    {% include 'components/header.html' %}
+    <title>{% block title %}{{ site.title|default:'我的博客' }}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    {% include 'components/navbar.html' %}
+    
+    <main class="container my-4">
+        {% block content %}{% endblock %}
+    </main>
+    
+    {% include 'components/footer.html' %}
+    
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
