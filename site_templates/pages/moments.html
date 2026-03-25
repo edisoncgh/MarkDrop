@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}说说 - {{ site.title }}{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">说说</h1>
+
+{% for moment in moments %}
+<article class="card mb-3">
+    <div class="card-body">
+        <div class="moment-content">
+            {{ moment.content_html|safe }}
+        </div>
+        {% if moment.images %}
+        <div class="moment-images mt-2">
+            {% for image in moment.images %}
+            <img src="{{ image }}" class="img-thumbnail me-2" style="max-height: 200px;">
+            {% endfor %}
+        </div>
+        {% endif %}
+        <p class="text-muted mt-2 mb-0">
+            <small>{{ moment.created_at|date:"Y-m-d H:i" }}</small>
+        </p>
+    </div>
+</article>
+{% empty %}
+<div class="alert alert-info">暂无说说</div>
+{% endfor %}
+{% endblock %}

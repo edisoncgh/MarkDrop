@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}关于 - {{ site.title }}{% endblock %}
+
+{% block content %}
+<div class="about-page">
+    <div class="text-center mb-4">
+        <h1>关于我</h1>
+    </div>
+    
+    <div class="about-content">
+        {{ about_content|safe|default:"暂无介绍" }}
+    </div>
+    
+    <hr class="my-4">
+    
+    <h3>联系方式</h3>
+    <ul class="list-unstyled">
+        {% if site.author %}
+        <li><strong>作者：</strong> {{ site.author }}</li>
+        {% endif %}
+        {% if site.url %}
+        <li><strong>网站：</strong> <a href="{{ site.url }}">{{ site.url }}</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}
