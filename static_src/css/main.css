@@ -1,0 +1,7 @@
+/* static_src/css/main.css - EDGP 样式入口 */
+@import url('variables.css');
+@import url('base.css');
+@import url('components.css');
+@import url('layout.css');
+@import url('highlight.css');
+@import url('responsive.css');

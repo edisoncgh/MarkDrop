@@ -1,0 +1,96 @@
+/* static_src/css/responsive.css - 响应式适配 */
+@import url('variables.css');
+
+/* 大屏幕优化 (1200px+) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* 中等屏幕 (768px - 991px) */
+@media (max-width: 991px) {
+    .container {
+        padding: 0 var(--space-4);
+    }
+    
+    .posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 平板屏幕 (576px - 767px) */
+@media (max-width: 767px) {
+    :root {
+        --text-base: 15px;
+    }
+    
+    .navbar-container {
+        padding: 0 var(--space-4);
+    }
+    
+    .posts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .friends-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: var(--space-6);
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: var(--space-6);
+    }
+}
+
+/* 小屏幕 (576px 以下) */
+@media (max-width: 575px) {
+    :root {
+        --text-base: 14px;
+    }
+    
+    .post-article {
+        padding: var(--space-4);
+    }
+    
+    .post-title {
+        font-size: var(--text-2xl);
+    }
+    
+    .timeline {
+        padding-left: var(--space-4);
+    }
+    
+    .timeline-date {
+        display: none;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    .edgp-navbar,
+    .edgp-footer,
+    .sidebar,
+    .prev-next-nav {
+        display: none;
+    }
+    
+    .post-detail {
+        max-width: 100%;
+    }
+    
+    .post-article {
+        box-shadow: none;
+        padding: 0;
+    }
+    
+    a {
+        color: #000;
+        text-decoration: underline;
+    }
+}
