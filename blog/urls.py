@@ -4,5 +4,5 @@ from . import views
 app_name = "blog"
 
 urlpatterns = [
-    # 后续添加路由
+    path('', views.index, name='index'),
 ]
