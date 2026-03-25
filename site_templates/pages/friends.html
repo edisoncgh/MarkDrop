@@ -2,20 +2,27 @@
 
 {% block title %}友链 - {{ site.title }}{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{{ static_prefix }}/css/main.css">
+{% endblock %}
+
 {% block content %}
-<h1 class="mb-4">友情链接</h1>
-
-<div class="friend-links">
-{% for link in links %}
-    {% include 'components/friend_link.html' %}
-{% empty %}
-<div class="alert alert-info">暂无友链</div>
-{% endfor %}
+<div class="friends-page">
+    <h1 class="page-title">友情链接</h1>
+    
+    <div class="friends-grid">
+        {% for link in links %}
+        {% include 'components/friend_link.html' %}
+        {% empty %}
+        <div class="empty-state">
+            <p>暂无友链</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="friend-exchange">
+        <h3>交换友链</h3>
+        <p>欢迎交换友链！请通过 About 页面的联系方式与我联系。</p>
+    </div>
 </div>
-
-<hr class="my-4">
-
-<p class="text-muted">
-    欢迎交换友链！请通过 About 页面的联系方式与我联系。
-</p>
 {% endblock %}
