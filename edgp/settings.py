@@ -98,8 +98,13 @@ OUTPUT_DIR = BASE_DIR / "output"
 SITE_TEMPLATES_DIR = BASE_DIR / "site_templates"
 STATIC_SRC_DIR = BASE_DIR / "static"
 
-# SimpleUI settings
-SIMPLEUI_HOME_TITLE = "EDGP 博客管理"
-SIMPLEUI_INDEX = "blog:admin_dashboard"
-SIMPLEUI_DEFAULT_THEME = "admin.lte.css"
-SIMPLEUI_LOGO = "https://img.icons8.com/fluency/48/blog.png"
+# SimpleUI 配置
+SIMPLEUI_HOME_TITLE = 'EDGP 博客管理'
+SIMPLEUI_HOME_INDEX = '/admin/'
+SIMPLEUI_DEFAULT_THEME = 'admin.lte.css'
+SIMPLEUI_LOGO = 'https://img.icons8.com/fluency/48/blog.png'
+
+# 隐藏首页服务器信息
+SIMPLEUI_HOME_INFO = False
+SIMPLEUI_HOME_QUICK = True
+SIMPLEUI_HOME_ACTION = True
