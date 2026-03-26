@@ -1,43 +1,33 @@
 {% extends 'base.html' %}
 
-{% block title %}归档 - {{ site.title }}{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="{{ static_prefix }}/css/main.css">
-{% endblock %}
+{% block title %}归档 - {{ site.title|default:'EDGP Blog' }}{% endblock %}
 
 {% block content %}
-<div class="archive-page">
-    <h1 class="page-title">归档</h1>
-    
-    <div class="timeline">
-        {% regroup posts by published_at|date:"Y" as posts_by_year %}
-        
-        {% for year in posts_by_year %}
-        <div class="timeline-year">
-            <h2 class="year-label">{{ year.grouper }}</h2>
-            
-            <ul class="timeline-posts">
-                {% for post in year.list %}
-                <li class="timeline-post">
-                    <div class="timeline-date">
-                        <time>{{ post.published_at|date:"m-d" }}</time>
-                    </div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <a href="{{ url_prefix }}posts/{{ post.published_at.year }}/{{ post.slug }}.html">
-                            {{ post.title }}
-                        </a>
-                    </div>
-                </li>
+<!-- 页面头部 -->
+<header class="page-header">
+    <h1 class="page-title">📚 归档</h1>
+    <p class="page-description">共 {{ posts|length }} 篇博文，按时间倒序排列</p>
+</header>
+
+<!-- 主内容区 -->
+<main class="container" style="padding-bottom: 3rem;">
+    <section class="archive-list">
+        {% for post in posts %}
+        <article class="archive-item">
+            <time class="archive-date">{{ post.published_at|date:"m-d" }}</time>
+            <a href="{{ url_prefix }}posts/{{ post.published_at.year }}/{{ post.slug }}.html" class="archive-item-title">{{ post.title }}</a>
+            {% if post.category %}
+            <a href="{{ url_prefix }}categories/{{ post.category.slug }}.html" class="category">{{ post.category.name }}</a>
+            {% endif %}
+            <div class="archive-item-tags">
+                {% for tag in post.tags.all %}
+                <a href="{{ url_prefix }}tags/{{ tag.slug }}.html" class="tag">{{ tag.name }}</a>
                 {% endfor %}
-            </ul>
-        </div>
+            </div>
+        </article>
         {% empty %}
-        <div class="empty-state">
-            <p>暂无文章</p>
-        </div>
+        <p class="empty-state">暂无博文</p>
         {% endfor %}
-    </div>
-</div>
+    </section>
+</main>
 {% endblock %}
