@@ -1,28 +1,54 @@
 {% extends 'base.html' %}
 
-{% block title %}友链 - {{ site.title }}{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="{{ static_prefix }}/css/main.css">
-{% endblock %}
+{% block title %}友情链接 - {{ site.title|default:'EDGP Blog' }}{% endblock %}
 
 {% block content %}
-<div class="friends-page">
-    <h1 class="page-title">友情链接</h1>
-    
-    <div class="friends-grid">
+<!-- 页面头部 -->
+<header class="page-header">
+    <h1 class="page-title">🔗 友情链接</h1>
+    <p class="page-description">优秀的博主朋友们，值得关注的站点</p>
+</header>
+
+<!-- 主内容区 -->
+<main class="container" style="padding-bottom: 3rem;">
+    <!-- 友链网格 -->
+    <section class="friends-grid">
         {% for link in links %}
-        {% include 'components/friend_link.html' %}
+        <a href="{{ link.url }}" target="_blank" class="friend-card">
+            {% if link.avatar %}
+            <img src="{{ link.avatar }}" alt="{{ link.name }}" class="friend-avatar">
+            {% else %}
+            <div class="friend-avatar" style="display: flex; align-items: center; justify-content: center; background: var(--color-bg-tertiary);">{{ link.name|first }}</div>
+            {% endif %}
+            <div class="friend-info">
+                <div class="friend-name">{{ link.name }}</div>
+                <div class="friend-url">{{ link.url|truncatechars:30 }}</div>
+                {% if link.description %}
+                <div class="friend-description">{{ link.description }}</div>
+                {% endif %}
+            </div>
+        </a>
         {% empty %}
-        <div class="empty-state">
-            <p>暂无友链</p>
-        </div>
+        <p class="empty-state">暂无友链</p>
         {% endfor %}
-    </div>
-    
-    <div class="friend-exchange">
-        <h3>交换友链</h3>
-        <p>欢迎交换友链！请通过 About 页面的联系方式与我联系。</p>
-    </div>
-</div>
+    </section>
+
+    <!-- 申请友链说明 -->
+    <section style="margin-top: 3rem; padding: 2rem; background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: 12px;">
+        <h2 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--color-text);">💌 申请友链</h2>
+        <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+            欢迎交换友链！请确保您的站点满足以下条件：
+        </p>
+        <ul style="color: var(--color-text-secondary); margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>站点内容原创为主，质量较高</li>
+            <li>站点可正常访问，无不良内容</li>
+            <li>优先考虑技术类、生活类博客</li>
+        </ul>
+        {% if site.email %}
+        <p style="color: var(--color-text-secondary);">
+            请通过 <a href="mailto:{{ site.email }}">邮件</a> 联系我。
+        </p>
+        {% endif %}
+    </section>
+</main>
 {% endblock %}

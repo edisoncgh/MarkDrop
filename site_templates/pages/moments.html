@@ -1,43 +1,40 @@
 {% extends 'base.html' %}
 
-{% block title %}说说 - {{ site.title }}{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="{{ static_prefix }}/css/main.css">
-{% endblock %}
+{% block title %}说说 - {{ site.title|default:'EDGP Blog' }}{% endblock %}
 
 {% block content %}
-<div class="moments-page">
-    <h1 class="page-title">说说</h1>
-    
-    <div class="moments-stream">
+<!-- 页面头部 -->
+<header class="page-header">
+    <h1 class="page-title">💭 说说</h1>
+    <p class="page-description">记录生活中的点滴，随性而写的小文字</p>
+</header>
+
+<!-- 主内容区 -->
+<main class="container" style="padding-bottom: 3rem;">
+    <section class="moments-list">
         {% for moment in moments %}
         <article class="moment-card">
             <div class="moment-header">
-                <time datetime="{{ moment.created_at|date:'c' }}">
-                    {{ moment.created_at|date:"Y-m-d H:i" }}
-                </time>
+                <div class="moment-avatar">{{ site.author|first|default:'B' }}</div>
+                <div>
+                    <div class="moment-author">{{ site.author|default:'博主' }}</div>
+                    <time class="moment-time">{{ moment.created_at|date:"Y-m-d H:i" }}</time>
+                </div>
             </div>
-            
             <div class="moment-content">
                 {{ moment.content_html|safe }}
             </div>
-            
             {% if moment.images %}
             <div class="moment-images">
                 {% for image in moment.images %}
-                <a href="{{ image }}" target="_blank" class="moment-image-item">
-                    <img src="{{ image }}" alt="图片 {{ forloop.counter }}" loading="lazy">
-                </a>
+                <img src="{{ image }}" alt="图片" class="moment-image">
                 {% endfor %}
             </div>
             {% endif %}
         </article>
         {% empty %}
-        <div class="empty-state">
-            <p>暂无说说</p>
-        </div>
+        <p class="empty-state">暂无说说</p>
         {% endfor %}
-    </div>
-</div>
+    </section>
+</main>
 {% endblock %}
