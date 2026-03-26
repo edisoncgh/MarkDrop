@@ -41,5 +41,5 @@ class Command(BaseCommand):
             self.stdout.write("  2. git remote add origin <your-github-pages-repo-url>")
             self.stdout.write("  3. git branch -M main")
             self.stdout.write("  4. git push -u origin main")
-
+        except Exception as e:
             self.stdout.write(self.style.ERROR(f"[ERROR] 初始化失败: {e}"))

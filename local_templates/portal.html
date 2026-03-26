@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDGP 博客管理</title>
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .portal-container {
+            text-align: center;
+            padding: 3rem 4rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 90%;
+        }
+        .portal-logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .portal-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        .portal-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+        .btn-enter {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-enter:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+            color: white;
+        }
+        .btn-enter:active {
+            transform: translateY(-1px);
+        }
+        .portal-features {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        .portal-features p {
+            color: #888;
+            font-size: 0.95rem;
+            margin: 0.5rem 0;
+        }
+        .portal-features .feature-icon {
+            margin-right: 0.5rem;
+        }
+        .portal-footer {
+            margin-top: 2rem;
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+        .portal-footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .portal-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="portal-container">
+        <div class="portal-logo">📝</div>
+        <h1 class="portal-title">EDGP</h1>
+        <p class="portal-subtitle">静态博客管理系统<br>本地撰写 · 生成页面 · 在线展示</p>
+        
+        <a href="/admin/" class="btn-enter">
+            <span>🚀</span>
+            <span>进入后台</span>
+        </a>
+        
+        <div class="portal-features">
+            <p><span class="feature-icon">✍️</span>Markdown 撰写博文</p>
+            <p><span class="feature-icon">⚙️</span>一键生成静态页面</p>
+            <p><span class="feature-icon">🚀</span>部署到 GitHub Pages</p>
+        </div>
+        
+        <p class="portal-footer">
+            Powered by <a href="https://www.djangoproject.com/" target="_blank">Django</a>
+        </p>
+    </div>
+</body>
+</html>

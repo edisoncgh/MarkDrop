@@ -42,7 +42,10 @@ ROOT_URLCONF = "edgp.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "site_templates"],
+        "DIRS": [
+            BASE_DIR / "local_templates",   # 本地端模板优先 (入口页)
+            BASE_DIR / "site_templates",    # 静态站点模板 (生成用)
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -83,7 +86,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    BASE_DIR / "static_src",
+]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Media files
@@ -95,8 +101,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom settings for EDGP
 OUTPUT_DIR = BASE_DIR / "output"
-SITE_TEMPLATES_DIR = BASE_DIR / "site_templates"
-STATIC_SRC_DIR = BASE_DIR / "static"
+LOCAL_TEMPLATES_DIR = BASE_DIR / "local_templates"  # 本地端模板
+SITE_TEMPLATES_DIR = BASE_DIR / "site_templates"     # 静态站点模板
+STATIC_SRC_DIR = BASE_DIR / "static_src"
 
 # SimpleUI 配置
 SIMPLEUI_HOME_TITLE = 'EDGP 博客管理'

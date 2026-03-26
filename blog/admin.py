@@ -1,5 +1,21 @@
 from django.contrib import admin
-from .models import Post, Category, Tag
+from django.contrib import messages
+from django.utils.html import format_html
+from .models import Post, Category, Tag, Moment, FriendLink, SiteConfig
+
+
+def regenerate_static(modeladmin, request, queryset):
+    """重新生成静态页面"""
+    try:
+        from blog.utils.generator import StaticSiteGenerator
+        generator = StaticSiteGenerator()
+        generator.generate_all()
+        messages.success(request, '静态页面生成成功！')
+    except Exception as e:
+        messages.error(request, f'生成失败: {str(e)}')
+
+
+regenerate_static.short_description = '重新生成静态页面'
 
 
 @admin.register(Category)
@@ -50,3 +66,37 @@ class PostAdmin(admin.ModelAdmin):
             '/static/vendor/easymde/easymde.min.js',
             '/static/js/admin-post.js',
         )
+    
+    actions = [regenerate_static]
+
+@admin.register(Moment)
+class MomentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'content_preview', 'created_at']
+    list_filter = ['created_at']
+    
+    def content_preview(self, obj):
+        return obj.content[:100] + '...' if len(obj.content) > 100 else obj.content
+    content_preview.short_description = '内容预览'
+
+
+@admin.register(FriendLink)
+class FriendLinkAdmin(admin.ModelAdmin):
+    list_display = ['name', 'url', 'order', 'is_active', 'avatar_preview']
+    list_editable = ['order', 'is_active']
+    search_fields = ['name', 'url']
+    
+    def avatar_preview(self, obj):
+        if obj.avatar:
+            return format_html('<img src="{}" width="40" height="40" style="border-radius:50%;">', obj.avatar)
+        return '-'
+    avatar_preview.short_description = '头像'
+
+
+@admin.register(SiteConfig)
+class SiteConfigAdmin(admin.ModelAdmin):
+    list_display = ['key', 'value_preview', 'description']
+    search_fields = ['key', 'description']
+    
+    def value_preview(self, obj):
+        return obj.value[:50] + '...' if len(obj.value) > 50 else obj.value
+    value_preview.short_description = '值'
