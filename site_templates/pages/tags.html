@@ -1,28 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %}标签 - {{ site.title }}{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="{{ static_prefix }}/css/main.css">
-{% endblock %}
+{% block title %}标签 - {{ site.title|default:'EDGP Blog' }}{% endblock %}
 
 {% block content %}
-<div class="tags-page">
-    <h1 class="page-title">标签</h1>
-    
-    <div class="tag-cloud-large">
+<!-- 页面头部 -->
+<header class="page-header">
+    <h1 class="page-title">🏷️ 标签</h1>
+    <p class="page-description">共 {{ tags|length }} 个标签</p>
+</header>
+
+<!-- 主内容区 -->
+<main class="container" style="padding-bottom: 3rem;">
+    <div class="tags-cloud">
         {% for tag in tags %}
-        <a href="{{ url_prefix }}tags/{{ tag.slug }}.html" 
-           class="tag-cloud-item" 
-           data-count="{{ tag.post_count }}">
-            <span class="tag-name">{{ tag.name }}</span>
-            <span class="tag-count">{{ tag.post_count }}</span>
+        <a href="{{ url_prefix }}tags/{{ tag.slug }}.html" class="tag">
+            {{ tag.name }}
+            {% if tag.post_count %}
+            <span style="font-size: 0.75em; opacity: 0.7;">({{ tag.post_count }})</span>
+            {% endif %}
         </a>
         {% empty %}
-        <div class="empty-state">
-            <p>暂无标签</p>
-        </div>
+        <p class="empty-state">暂无标签</p>
         {% endfor %}
     </div>
-</div>
+</main>
 {% endblock %}
