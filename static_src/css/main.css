@@ -1091,6 +1091,3 @@ img {
    代码高亮
    ===================================================== */
 @import url('highlight.css');
-    grid-template-columns: 1fr;
-  }
-}

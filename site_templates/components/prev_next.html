@@ -1,20 +1,19 @@
-<nav class="post-navigation border-top border-bottom py-3 my-4">
-    <div class="row">
-        <div class="col-6">
-            {% if prev_post %}
-            <a href="{{ url_prefix }}posts/{{ prev_post.published_at.year }}/{{ prev_post.slug }}.html" class="text-decoration-none">
-                <span class="text-muted">← 上一篇</span><br>
-                <span>{{ prev_post.title|truncatechars:30 }}</span>
-            </a>
-            {% endif %}
-        </div>
-        <div class="col-6 text-end">
-            {% if next_post %}
-            <a href="{{ url_prefix }}posts/{{ next_post.published_at.year }}/{{ next_post.slug }}.html" class="text-decoration-none">
-                <span class="text-muted">下一篇 →</span><br>
-                <span>{{ next_post.title|truncatechars:30 }}</span>
-            </a>
-            {% endif %}
-        </div>
-    </div>
+<nav class="post-nav">
+    {% if prev_post %}
+    <a href="{{ url_prefix }}posts/{{ prev_post.published_at.year }}/{{ prev_post.slug }}.html" class="post-nav-item prev">
+        <span class="post-nav-label">← 上一篇</span>
+        <span class="post-nav-title">{{ prev_post.title|truncatechars:30 }}</span>
+    </a>
+    {% else %}
+    <div class="post-nav-item prev"></div>
+    {% endif %}
+
+    {% if next_post %}
+    <a href="{{ url_prefix }}posts/{{ next_post.published_at.year }}/{{ next_post.slug }}.html" class="post-nav-item next">
+        <span class="post-nav-label">下一篇 →</span>
+        <span class="post-nav-title">{{ next_post.title|truncatechars:30 }}</span>
+    </a>
+    {% else %}
+    <div class="post-nav-item next"></div>
+    {% endif %}
 </nav>

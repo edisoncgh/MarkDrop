@@ -29,6 +29,8 @@ class StaticSiteGenerator:
             "description": SiteConfig.get("site.description", ""),
             "author": SiteConfig.get("author.name", ""),
             "url": SiteConfig.get("site.url", ""),
+            "email": SiteConfig.get("site.email", ""),
+            "days": SiteConfig.get("site.days", "365"),
         }
 
     def _get_context(self, extra=None, static_prefix="static", url_prefix=""):
@@ -98,6 +100,7 @@ class StaticSiteGenerator:
         self._generate_posts()
         self._generate_archive()
         self._generate_tags()
+        self._generate_categories()  # 恢复分类页生成
         self._generate_moments()
         self._generate_friends()
         self._generate_about()
@@ -106,18 +109,20 @@ class StaticSiteGenerator:
 
     def _generate_index(self):
         """生成首页"""
-        from ..models import Post, Category, Tag
+        from ..models import Post, Category, Tag, Moment
 
         print("[PAGE] 生成首页...")
         posts = Post.objects.filter(status="published").order_by("-published_at")[:10]
         categories = Category.objects.all()
         tags = Tag.objects.all()
+        moments = Moment.objects.all().order_by("-created_at")[:5]
 
         context = self._get_context(
             {
                 "posts": posts,
                 "categories": categories,
                 "tags": tags,
+                "moments": moments,
             },
             static_prefix="static",
             url_prefix="",
@@ -127,11 +132,20 @@ class StaticSiteGenerator:
         self._write_page("index.html", html)
 
     def _generate_posts(self):
-        """生成所有博文页面"""
+        """生成博文列表页和所有博文详情页"""
         from ..models import Post
 
         print("[POSTS] 生成博文页面...")
         posts = list(Post.objects.filter(status="published").order_by("-published_at"))
+
+        # 先生成博文列表页 (output/posts.html)
+        list_context = self._get_context(
+            {"posts": posts},
+            static_prefix="static",
+            url_prefix="",
+        )
+        list_html = render_to_string("pages/posts.html", list_context)
+        self._write_page("posts.html", list_html)
 
         for i, post in enumerate(posts):
             prev_post = posts[i - 1] if i > 0 else None
@@ -142,11 +156,17 @@ class StaticSiteGenerator:
             # 计算相对路径前缀: posts/2026/slug.html 需要回到根目录
             static_prefix = "../../static"  # 从 posts/2026/ 回到 static
             url_prefix = "../../"  # 从 posts/2026/ 回到根目录 (含尾部斜杠)
+            post_absolute_url = (
+                f"{self.site_config['url'].rstrip('/')}/posts/{year}/{post.slug}.html"
+                if self.site_config.get("url")
+                else f"{url_prefix}posts/{year}/{post.slug}.html"
+            )
             context = self._get_context(
                 {
                     "post": post,
                     "prev_post": prev_post,
                     "next_post": next_post,
+                    "post_absolute_url": post_absolute_url,
                 },
                 static_prefix=static_prefix,
                 url_prefix=url_prefix,
@@ -181,8 +201,8 @@ class StaticSiteGenerator:
         tags = Tag.objects.all()
         context = self._get_context(
             {"tags": tags},
-            static_prefix="static",
-            url_prefix="",  # 标签列表页在根目录
+            static_prefix="../static",  # 从 tags/ 回到 static/
+            url_prefix="../",  # 从 tags/ 回到根目录
         )
         html = render_to_string("pages/tags.html", context)
         self._write_page("tags/index.html", html)
@@ -196,6 +216,7 @@ class StaticSiteGenerator:
                 url_prefix="../",  # 从 tags/ 回到根目录 (含尾部斜杠)
             )
             html = render_to_string("pages/tag.html", context)
+            self._write_page(f"tags/{tag.slug}.html", html)
 
     def _generate_categories(self):
         """生成分类页"""
@@ -245,16 +266,23 @@ class StaticSiteGenerator:
 
     def _generate_about(self):
         """生成关于页"""
-        from ..models import SiteConfig
+        from ..models import SiteConfig, Post, Moment, FriendLink
 
         print("[ABOUT] 生成关于页...")
         about_content = SiteConfig.get("about.content", "")
+        posts = Post.objects.filter(status="published")
+        moments = Moment.objects.all()
+        links = FriendLink.objects.filter(is_active=True)
 
         context = self._get_context(
-            {"about_content": about_content},
+            {
+                "about_content": about_content,
+                "posts": posts,
+                "moments": moments,
+                "links": links,
+            },
             static_prefix="static",
             url_prefix="",
         )
         html = render_to_string("pages/about.html", context)
         self._write_page("about.html", html)
-
