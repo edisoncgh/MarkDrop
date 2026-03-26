@@ -1,35 +1,14 @@
 <!-- site_templates/components/footer.html -->
-<footer class="edgp-footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span class="brand-text">{{ site.title|default:'我的博客' }}</span>
-                <p class="footer-tagline">记录技术，分享思考</p>
-            </div>
-            
-            <div class="footer-links">
-                <div class="footer-section">
-                    <h4>导航</h4>
-                    <ul>
-                        <li><a href="{{ url_prefix }}index.html">首页</a></li>
-                        <li><a href="{{ url_prefix }}archive.html">归档</a></li>
-                        <li><a href="{{ url_prefix }}tags/">标签</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>社交</h4>
-                    <ul>
-                        <li><a href="{{ url_prefix }}moments.html">说说</a></li>
-                        <li><a href="{{ url_prefix }}friends.html">友链</a></li>
-                        <li><a href="{{ url_prefix }}about.html">关于</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; {{ site.title|default:'我的博客' }}. Powered by EDGP.</p>
-        </div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-links">
+      {% if site.url %}
+      <a href="{{ site.url }}" target="_blank">Website</a>
+      {% endif %}
+      {% if site.email %}
+      <a href="mailto:{{ site.email }}">Email</a>
+      {% endif %}
     </div>
+    <p>© {{ site.title|default:'EDGP Blog' }}. Powered by Django & GitHub Pages.</p>
+  </div>
 </footer>
