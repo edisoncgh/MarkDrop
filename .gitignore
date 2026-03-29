@@ -35,6 +35,9 @@ coverage.xml
 .opencode/
 .vscode/
 .idea/
+openspec/
+DESIGN.md
+docs/
 
 # =========================
 # OS junk files
