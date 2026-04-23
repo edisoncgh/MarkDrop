@@ -1,0 +1,344 @@
+/* ============================================
+   Blog Admin Post Edit — 自定义样式
+   ============================================ */
+
+/* ---- Status Toggle Switch ---- */
+.status-toggle-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+}
+
+.status-toggle {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.status-toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.status-toggle-slider {
+    position: absolute;
+    inset: 0;
+    background-color: #c0c4cc;
+    border-radius: 22px;
+    transition: background-color 0.25s;
+}
+
+.status-toggle-slider::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.25s;
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+}
+
+.status-toggle-input:checked + .status-toggle-slider {
+    background-color: #67c23a;
+}
+
+.status-toggle-input:checked + .status-toggle-slider::before {
+    transform: translateX(22px);
+}
+
+.status-toggle-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #606266;
+    min-width: 3em;
+}
+
+/* ---- Tag Input (替换 inline style) ---- */
+.tag-input-container {
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    padding: 6px 8px;
+    min-height: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    background: #fff;
+    transition: border-color 0.2s;
+    cursor: text;
+}
+
+.tag-input-container:focus-within {
+    border-color: #409eff;
+    box-shadow: 0 0 0 2px rgba(64,158,255,.15);
+}
+
+.tag-input-container input {
+    border: none;
+    outline: none;
+    flex: 1;
+    min-width: 120px;
+    font-size: 13px;
+    padding: 2px 4px;
+    background: transparent;
+    font-family: inherit;
+}
+
+.tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #ecf5ff;
+    color: #409eff;
+    border: 1px solid #d9ecff;
+    border-radius: 4px;
+    padding: 2px 6px 2px 8px;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+}
+
+.tag-chip:hover {
+    background: #d9ecff;
+}
+
+.tag-chip-remove {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1;
+    color: #409eff;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+
+.tag-chip-remove:hover {
+    background: #409eff;
+    color: #fff;
+}
+
+/* Tag 下拉列表 */
+.tag-dropdown {
+    display: none;
+    position: fixed;
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 9999;
+    box-shadow: 0 2px 12px rgba(0,0,0,.12);
+}
+
+.tag-dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    transition: background 0.1s;
+}
+
+.tag-dropdown-item:hover {
+    background: #f5f7fa;
+}
+
+.tag-dropdown-item.is-selected {
+    opacity: 0.5;
+}
+
+.tag-dropdown-item.is-selected::after {
+    content: '✓';
+    color: #409eff;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.tag-dropdown-item .tag-count {
+    color: #999;
+    font-size: 12px;
+}
+
+.tag-dropdown-create {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #409eff;
+    font-size: 13px;
+    border-top: 1px solid #eee;
+    transition: background 0.1s;
+}
+
+.tag-dropdown-create:hover {
+    background: #f5f7fa;
+}
+
+/* ---- Markdown Live Preview ---- */
+.live-preview-wrapper {
+    margin-top: 8px;
+    border: 1px solid #e4e7ed;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.live-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    background: #f5f7fa;
+    border-bottom: 1px solid #e4e7ed;
+    font-size: 13px;
+    color: #606266;
+}
+
+.live-preview-toggle {
+    cursor: pointer;
+    color: #409eff;
+    font-weight: 600;
+    user-select: none;
+}
+
+.live-preview-toggle:hover {
+    text-decoration: underline;
+}
+
+.live-preview-body {
+    padding: 16px 20px;
+    max-height: 600px;
+    overflow-y: auto;
+    background: #fff;
+    line-height: 1.7;
+    font-size: 14px;
+    color: #303133;
+}
+
+.live-preview-body:empty::before {
+    content: '预览区域 — 输入内容后自动渲染';
+    color: #c0c4cc;
+    font-style: italic;
+}
+
+.live-preview-body.loading {
+    opacity: 0.6;
+}
+
+/* 预览内容排版 */
+.live-preview-body h1,
+.live-preview-body h2,
+.live-preview-body h3,
+.live-preview-body h4 {
+    margin: 0.8em 0 0.4em;
+    line-height: 1.3;
+}
+
+.live-preview-body h1 { font-size: 1.6em; }
+.live-preview-body h2 { font-size: 1.3em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+.live-preview-body h3 { font-size: 1.15em; }
+
+.live-preview-body p {
+    margin: 0.5em 0;
+}
+
+.live-preview-body pre {
+    background: #fafafa;
+    border: 1px solid #e4e7ed;
+    border-radius: 4px;
+    padding: 12px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.live-preview-body code {
+    background: #f5f7fa;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.live-preview-body pre code {
+    background: none;
+    padding: 0;
+}
+
+.live-preview-body blockquote {
+    border-left: 4px solid #409eff;
+    padding: 8px 16px;
+    margin: 0.8em 0;
+    background: #f5f7fa;
+    color: #606266;
+}
+
+.live-preview-body table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0.8em 0;
+}
+
+.live-preview-body th,
+.live-preview-body td {
+    border: 1px solid #dcdfe6;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.live-preview-body th {
+    background: #f5f7fa;
+    font-weight: 600;
+}
+
+.live-preview-body img {
+    max-width: 100%;
+    border-radius: 4px;
+}
+
+.live-preview-body .mermaid {
+    background: #fafafa;
+    border: 1px solid #e4e7ed;
+    border-radius: 4px;
+    padding: 12px;
+    text-align: center;
+}
+
+.live-preview-body .katex-display {
+    text-align: center;
+    margin: 1em 0;
+}
+
+.live-preview-body ul,
+.live-preview-body ol {
+    padding-left: 2em;
+    margin: 0.5em 0;
+}
+
+.live-preview-body li {
+    margin: 0.25em 0;
+}
+
+.live-preview-body a {
+    color: #409eff;
+    text-decoration: none;
+}
+
+.live-preview-body a:hover {
+    text-decoration: underline;
+}
+
+.live-preview-body hr {
+    border: none;
+    border-top: 1px solid #e4e7ed;
+    margin: 1.5em 0;
+}

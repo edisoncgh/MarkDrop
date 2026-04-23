@@ -56,3 +56,9 @@ output/
 
 # Logs
 *.log
+
+CLAUDE.md
+
+.claude/
+
+.mcp.json
