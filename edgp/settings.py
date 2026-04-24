@@ -2,6 +2,7 @@
 Django settings for edgp project.
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -100,7 +101,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom settings for EDGP
-OUTPUT_DIR = BASE_DIR / "output"
+OUTPUT_DIR = Path(os.environ.get("EDGP_OUTPUT_DIR", str(BASE_DIR / "output")))
 LOCAL_TEMPLATES_DIR = BASE_DIR / "local_templates"  # 本地端模板
 SITE_TEMPLATES_DIR = BASE_DIR / "site_templates"     # 静态站点模板
 STATIC_SRC_DIR = BASE_DIR / "static_src"
