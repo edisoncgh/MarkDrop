@@ -60,5 +60,7 @@ output/
 CLAUDE.md
 
 .claude/
+.memory/
+system_pic/
 
 .mcp.json
