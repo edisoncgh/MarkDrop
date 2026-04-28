@@ -3,6 +3,7 @@
 将数据库内容渲染为静态 HTML 文件
 """
 
+import itertools
 import os
 import shutil
 from pathlib import Path
@@ -60,6 +61,7 @@ class StaticSiteGenerator:
     def _clean_output(self):
         """清理输出目录（保留 .git）"""
         print("[CLEAN] 清理输出目录...")
+        self.output_dir.mkdir(parents=True, exist_ok=True)
         for item in self.output_dir.iterdir():
             if item.name != ".git":
                 if item.is_dir():
@@ -183,8 +185,15 @@ class StaticSiteGenerator:
         print("[ARCHIVE] 生成归档页...")
         posts = Post.objects.filter(status="published").order_by("-published_at")
 
+        # 按年份分组
+        year_groups = []
+        for year, year_posts in itertools.groupby(
+            posts, key=lambda p: p.published_at.year
+        ):
+            year_groups.append({"year": year, "posts": list(year_posts)})
+
         context = self._get_context(
-            {"posts": posts},
+            {"year_groups": year_groups, "total_count": posts.count()},
             static_prefix="static",
             url_prefix="",  # 首页在根目录，无需前缀
         )

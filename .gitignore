@@ -41,6 +41,7 @@ coverage.xml
 openspec/
 DESIGN.md
 docs/
+old_blog_backup/
 
 # =========================
 # OS junk files
@@ -53,6 +54,7 @@ nul
 # Project generated outputs
 # =========================
 output/
+.worktrees/
 
 # Archives / temporary packages
 *.zip
@@ -61,8 +63,10 @@ output/
 *.log
 
 CLAUDE.md
-
+AGENT.md
 .claude/
+.agent/
+
 .memory/
 system_pic/
 
